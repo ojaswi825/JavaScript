@@ -39,3 +39,54 @@ Book.prototype.getDescription = function() {
 const book2 = new Book('Book2', 'John Doe', 2006);
 console.log(book2);
 console.log(book2.getDescription());
+
+// inheritance step 1
+function Magazine(title, author, year, month) {
+    Book.call(this, title, author, year);
+
+    this.month = month;
+}
+// step 2
+Magazine.prototype = Object.create(Book.prototype);
+// step3 --optional
+Magazine.prototype.constructor = Magazine;
+
+const mag1 = new Magazine('times', 'author', 2007, 'march');
+console.log(mag1);
+
+// ES6 classes
+class Cookie {
+    constructor(type, flav, chips) {
+        this.type = type;
+        this.flav = flav;
+        this.chips = chips;
+    }
+
+    getDescription() {
+        return `${this.type} cookie of ${this.flav} flavour with ${this.chips} chips`;    
+    }
+
+    static isTasty() {
+        return 'Cookies are tasty!';
+    }
+}
+
+const cookie = new Cookie('Banana', 'chocolate', 'choco');
+console.log(cookie.getDescription());
+console.log(Cookie.isTasty());
+
+// ES6 inheritance
+class Biscuits extends Cookie {
+    constructor (type, flav, chips, brand) {
+        super(type, flav, chips);
+        this.brand = brand;
+    }
+
+    //override getDescription method
+    getDescription() {
+        return `${this.type} biscuits of ${this.flav} flavour with ${this.chips} chips of ${this.brand} company`;    
+    }
+}
+
+const bis = new Biscuits('milk', 'chocolate', 'choco', 'britania');
+console.log(bis.getDescription());
